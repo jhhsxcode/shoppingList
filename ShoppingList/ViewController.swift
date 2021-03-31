@@ -8,18 +8,42 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource
+{
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textFIeld: UITextField!
     
-    override func viewDidLoad() {
+    var items: [String] = []
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        tableView.dataSource = self
+        
+        items.append("Bacon")
+        items.append("Eggs")
+        items.append("Milk")
     }
 
-    @IBAction func whenButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func whenButtonPressed(_ sender: UIBarButtonItem)
+    {
+        
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+        cell.textLabel?.text = items[indexPath.row]
+        return cell
+    }
+    
+
 }
 
